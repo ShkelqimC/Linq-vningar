@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using LinqLibrary;
 
@@ -9,6 +10,9 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             var fighters = ListManager.SampleList();
+            var numbers = new List<int>() {1,7,9,5,8,6,4,3,2};
+
+
 
             //Skriver ut alla för och efternamn från listan. 
             Console.WriteLine("Lista av alla fighters");
@@ -92,9 +96,41 @@ namespace ConsoleUI
             fightersUnderThirty.ForEach(x => Console.WriteLine(x.FullName));
             Console.WriteLine();
 
+            Console.Write("Numbers listan:");
+            numbers.ForEach(x=> Console.Write(x + ", "));
+            Console.WriteLine();
+
+            List<int> numbersSortedAscending = numbers.OrderBy(x => x).ToList();
+            Console.Write("numbers sorted ascending: ");
+            numbersSortedAscending.ForEach(x => Console.Write(x + ", "));
+            Console.WriteLine();
+
+            var numbersSortedDescending = numbers.OrderByDescending(x => x).ToList();
+            Console.Write("numbers sorted descending: ");
+            numbersSortedDescending.ForEach(x => Console.Write(x + ", "));
+            Console.WriteLine();
+
+
+            var evenNumbers = numbers.Where(x => x % 2 == 0).ToList();
+            Console.Write("Jämna siffrorna: ");
+            evenNumbers.ForEach(x => Console.Write(x + ", "));
+            Console.WriteLine();
+
+            var oddNumbers = numbers.Where(x => x % 2 != 0).OrderBy(x=> x).ToList();
+            Console.Write("Ojämna siffrorna: ");
+            oddNumbers.ForEach(x => Console.Write(x + ", "));
+
+
+            var sumOfEvenNumbers = numbers.Where(x => x % 2 == 0).Sum(x => x);
+            Console.WriteLine("Summan av jämna siffrorna: " + sumOfEvenNumbers);
+
+            var sumOfAllNumbers = numbers.Sum(x => x);
+            Console.WriteLine("summan av alla siffrorna: " + sumOfAllNumbers);
+
 
             Console.ReadKey();
-
+            
+            
         }
     }
 }
