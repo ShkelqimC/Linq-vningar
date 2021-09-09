@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using LinqLibrary;
 
 namespace ConsoleUI
@@ -11,6 +12,7 @@ namespace ConsoleUI
         {
             var fighters = ListManager.SampleList();
             var numbers = new List<int>() {1,7,9,5,8,6,4,3,2};
+
 
 
 
@@ -149,6 +151,49 @@ namespace ConsoleUI
             //genomsnittliga ålder på fighters
             Console.WriteLine("genomsnittsåldern på alla fighters: " + Math.Round(fighters.Average(x => x.age), 0));
             
+            //antal fighters över 30
+            Console.WriteLine("Av " +fighters.Count + " fighters är " +fighters.Where(x=> x.age>=30).Count()+" stycken 30 eller äldre.");
+
+            //testar om alla fighters är under 40
+            Console.WriteLine("Alla fighters är under 40 år gamla: " +fighters.All(x => x.age < 40));
+
+            //testar om NÅGON av fighters är ÖVER 40
+            var overForty = fighters.Where(x => x.age > 40).ToList();
+            Console.Write("Någon fighhter är över 40: " + fighters.Any(x=> x.age>40) + ", ");
+            overForty.ForEach(x => Console.Write(x.FullName));
+            Console.WriteLine();
+
+            List<int> test1 = new List<int>() {1, 2, 2, 3, 3, 4};
+            List<int> test2 = new List<int>() {2, 3, 5, 5, 7 };
+            Console.WriteLine();
+            Console.WriteLine();
+
+
+            Console.WriteLine("Hela Listorna: (Nya för .Distinct, .Except, .Intersect");
+            Console.Write("första listan: ");
+            test1.ForEach(x => Console.Write(x + ", "));
+            Console.WriteLine();
+            Console.Write("andra listan: ");
+            test2.ForEach(x => Console.Write(x + ", "));
+            Console.WriteLine();
+
+            //lista utan dubletter
+            var utanDublett = test1.Distinct().ToList();
+            Console.Write("Listan (första) utan dublett (distinct): ");
+            utanDublett.ForEach(x=> Console.Write(x + ", "));
+            Console.WriteLine();
+
+            //jämför en lista med en annan och returner listan utan värden somo finns i den andra
+            var exceptList = test1.Except(test2).ToList();
+            Console.Write("2listor jämförde och värden som bara förekommer i ena(.Except): ");
+            exceptList.ForEach(x=> Console.Write(x + ", "));
+            Console.WriteLine();
+
+            //motsatsen till förra, skriver bara ut de som förekommer i båda listorna
+            var intersectList = test1.Intersect(test2).ToList();
+            Console.Write("2listor jämförde och värden som förekommer i båda(.Intersect): ");
+            intersectList.ForEach(x=> Console.Write(x+ ", "));
+            Console.WriteLine();
 
 
             Console.ReadKey();
