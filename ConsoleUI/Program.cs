@@ -96,36 +96,59 @@ namespace ConsoleUI
             fightersUnderThirty.ForEach(x => Console.WriteLine(x.FullName));
             Console.WriteLine();
 
+            //alla number i numbers listan
             Console.Write("Numbers listan:");
             numbers.ForEach(x=> Console.Write(x + ", "));
             Console.WriteLine();
 
+            //alla numer i nummerlistan sorterade (ascending)
             List<int> numbersSortedAscending = numbers.OrderBy(x => x).ToList();
             Console.Write("numbers sorted ascending: ");
             numbersSortedAscending.ForEach(x => Console.Write(x + ", "));
             Console.WriteLine();
 
+            //alla nummer i nummerlistan sorterade (descending)
             var numbersSortedDescending = numbers.OrderByDescending(x => x).ToList();
             Console.Write("numbers sorted descending: ");
             numbersSortedDescending.ForEach(x => Console.Write(x + ", "));
             Console.WriteLine();
 
-
+            //alla jämna nummer i nummerlistan
             var evenNumbers = numbers.Where(x => x % 2 == 0).ToList();
             Console.Write("Jämna siffrorna: ");
             evenNumbers.ForEach(x => Console.Write(x + ", "));
             Console.WriteLine();
 
-            var oddNumbers = numbers.Where(x => x % 2 != 0).OrderBy(x=> x).ToList();
+            //alla ojämna siffror sorterade (ascending)
+            var oddNumbersAscending = numbers.Where(x => x % 2 != 0).OrderBy(x=> x).ToList();
             Console.Write("Ojämna siffrorna: ");
-            oddNumbers.ForEach(x => Console.Write(x + ", "));
+            oddNumbersAscending.ForEach(x => Console.Write(x + ", "));
 
-
+            //summan av alla jämna siffror
             var sumOfEvenNumbers = numbers.Where(x => x % 2 == 0).Sum(x => x);
             Console.WriteLine("Summan av jämna siffrorna: " + sumOfEvenNumbers);
 
+            //summan av alla siffror
             var sumOfAllNumbers = numbers.Sum(x => x);
             Console.WriteLine("summan av alla siffrorna: " + sumOfAllNumbers);
+
+            //summan av alla siffror på annat sätt
+            Console.WriteLine("summan av alla siffrorna (.Aggregate): " + numbers.Aggregate((x, y) => x + y));
+
+            //alla siffrors kvadrat (ascending)
+            var squareOfAllNumbers = numbers.OrderBy(x=> x).Select(x => x * x).ToList();
+            Console.Write("Alla siffror i kvadrat: ");
+            squareOfAllNumbers.ForEach(x=> Console.Write(x +", "));
+            Console.WriteLine();
+
+            //summan av alla siffrors kvadrat (ascending)
+            var sumOfSquares = numbers.OrderBy(x => x).Select(x => x * x).ToList().Aggregate((x, y) => x + y);
+            Console.Write("summan av alla kvadrater: " + sumOfSquares);
+            Console.WriteLine();
+
+            //genomsnittliga ålder på fighters
+            Console.WriteLine("genomsnittsåldern på alla fighters: " + Math.Round(fighters.Average(x => x.age), 0));
+            
 
 
             Console.ReadKey();
